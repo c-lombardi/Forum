@@ -1,0 +1,95 @@
+﻿@model Forum.ViewModel.ThreadVM
+
+@{
+    ViewBag.Title = "Forum";
+}
+
+<h2>Forum</h2>
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+<table class ="threads">
+    @*    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ThreadTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ThreadText)
+        </th>
+        <th></th>
+    </tr>*@
+    <tr><th>Thread Title</th><th>Thread Text</th></tr>
+    @foreach (var item in Model.threads)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.ThreadTitle, "/Details/" + item.ThreadID)
+            </td>
+            <td>
+                @using (Html.BeginForm("Delete", "Threads", new { id = item.ThreadID }, FormMethod.Post))
+                {
+                      <input type="submit" value="Delete"/>
+                }
+            </td>
+            <td>
+                @using (Html.BeginForm("Edit", "Threads", new { id = item.ThreadID }, FormMethod.Get))
+                {
+                      <input type="submit" value="Edit"/>
+                }
+            </td>
+        </tr>
+    }
+</table>
+@using (Html.BeginForm("Create", "Threads", FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Thread</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.thread.ThreadTitle)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.thread.ThreadTitle)
+            @Html.ValidationMessageFor(model => model.thread.ThreadTitle)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+@*@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Thread</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(modelItem => model.ThreadTitle)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ThreadTitle)
+            @Html.ValidationMessageFor(model => model.ThreadTitle)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ThreadText)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ThreadText)
+            @Html.ValidationMessageFor(model => model.ThreadText)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

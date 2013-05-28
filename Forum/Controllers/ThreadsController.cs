@@ -10,34 +10,30 @@ using Forum.ViewModel;
 
 namespace Forum.Controllers
 {
-    public class PostsController : Controller
+    public class ThreadsController : Controller
     {
         private ForumDBContext db = new ForumDBContext();
 
         //
-        // GET: /Posts/
+        // GET: /Threads/
 
         public ActionResult Index()
         {
-            var viewmodel = new PostVM() {post = new Post(), posts = db.Posts.ToList() }; 
+            var viewmodel = new ThreadVM() { thread = new Thread(), threads = db.Threads.ToList() }; 
             return View(viewmodel);
         }
 
         //
-        // GET: /Posts/Details/5
+        // GET: /Threads/Details/5
 
         public ActionResult Details(int id = 0)
         {
-            Post post = db.Posts.Find(id);
-            if (post == null)
-            {
-                return HttpNotFound();
-            }
-            return View(post);
+            var viewmodel = new ThreadVM() { thread = new Thread(), threads = db.Threads.ToList() };
+            return View(viewmodel);
         }
 
         //
-        // GET: /Posts/Create
+        // GET: /Threads/Create
 
         public ActionResult Create()
         {
@@ -45,70 +41,70 @@ namespace Forum.Controllers
         }
 
         //
-        // POST: /Posts/Create
+        // POST: /Threads/Create
 
         [HttpPost]
-        public ActionResult Create(Post post)
+        public ActionResult Create(Thread thread)
         {
             if (ModelState.IsValid)
             {
-                db.Posts.Add(post);
+                db.Threads.Add(thread);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(post);
+            return View(thread);
         }
 
         //
-        // GET: /Posts/Edit/5
+        // GET: /Threads/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
-            Post post = db.Posts.Find(id);
-            if (post == null)
+            Thread thread = db.Threads.Find(id);
+            if (thread == null)
             {
                 return HttpNotFound();
             }
-            return View(post);
+            return View(thread);
         }
 
         //
-        // POST: /Posts/Edit/5
+        // POST: /Threads/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Post post)
+        public ActionResult Edit(Thread thread)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(post).State = EntityState.Modified;
+                db.Entry(thread).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(post);
+            return View(thread);
         }
 
         //
-        // GET: /Posts/Delete/5
+        // GET: /Threads/Delete/5
 
         public ActionResult Delete(int id = 0)
         {
-            Post post = db.Posts.Find(id);
-            if (post == null)
+            Thread thread = db.Threads.Find(id);
+            if (thread == null)
             {
                 return HttpNotFound();
             }
-            return View(post);
+            return View(thread);
         }
 
         //
-        // POST: /Posts/Delete/5
+        // POST: /Threads/Delete/5
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Post post = db.Posts.Find(id);
-            db.Posts.Remove(post);
+            Thread thread = db.Threads.Find(id);
+            db.Threads.Remove(thread);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

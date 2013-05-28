@@ -8,13 +8,8 @@ namespace Forum.Models
 {
     public class Thread
     {
-        public int ThreadId { get; set; }
+        public int ThreadID { get; set; }
         public string ThreadTitle { get; set; }
-        public List<Post> Posts { get; set; }
-    }
-
-    public class ThreadDBContext : DbContext
-    {
-        public DbSet<Thread> Threads { get; set; }
+        public Post Posts { get; set; }
     }
 }

@@ -13,9 +13,4 @@ namespace Forum.Models
         public string PostText { get; set; }
     }
 
-    public class PostDBContext : DbContext
-    {
-        public DbSet<Post> Posts { get; set; }
-    }
-
 }
