@@ -1,0 +1,19 @@
+﻿@model Forum.Models.ThreadDetailViewModel
+
+@{
+    ViewBag.Title = "ViewThreadDetail";
+}
+
+<h2>ViewThreadDetail</h2>
+
+<p>List of Posts:</p>
+
+@foreach (var post in Model.Thread.Posts)
+{
+    <div>@post.PostTitle</div>
+}
+
+<p>Add a Post:</p>
+
+@Html.Action("NewPost", "Post", Model.NewPost)
+

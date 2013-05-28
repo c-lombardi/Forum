@@ -1,0 +1,14 @@
+﻿@model Forum.Models.Post
+
+@using(@Html.BeginForm("Add", "Post"))
+{
+    @Html.LabelFor(a=>a.PostTitle);
+    @Html.TextBoxFor(a=>a.PostTitle);
+    
+    @Html.LabelFor(a => a.PostText);
+    @Html.TextBoxFor(a => a.PostText);
+    
+    @Html.LabelFor(a => a.ThreadId); 
+   
+    <button>Submit</button>   
+}   
