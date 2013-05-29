@@ -1,4 +1,4 @@
-﻿@model Forum.Models.Post
+﻿@model Forum.ViewModel.PostEditVM
 
 @{
     ViewBag.Title = "Edit";
@@ -6,28 +6,29 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("Edit", "Posts", new { threadid = Model.threadid }))
+{
     @Html.ValidationSummary(true)
 
     <fieldset>
         <legend>Post</legend>
 
-        @Html.HiddenFor(model => model.PostID)
+        @Html.HiddenFor(model => model.post.PostID)
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.PostTitle)
+            @Html.LabelFor(model => model.post.PostTitle)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.PostTitle)
-            @Html.ValidationMessageFor(model => model.PostTitle)
+            @Html.EditorFor(model => model.post.PostTitle)
+            @Html.ValidationMessageFor(model => model.post.PostTitle)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.PostText)
+            @Html.LabelFor(model => model.post.PostText)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.PostText)
-            @Html.ValidationMessageFor(model => model.PostText)
+            @Html.EditorFor(model => model.post.PostText)
+            @Html.ValidationMessageFor(model => model.post.PostText)
         </div>
 
         <p>
@@ -37,7 +38,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", new {threadidd = Model.threadid})
 </div>
 
 @section Scripts {

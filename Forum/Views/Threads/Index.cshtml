@@ -19,12 +19,12 @@
         </th>
         <th></th>
     </tr>*@
-    <tr><th>Thread Title</th><th>Thread Text</th></tr>
+    <tr><th>Thread Title</th><th>Buttons!</th><th> Glorious buttons!</th></tr>
     @foreach (var item in Model.threads)
     {
         <tr>
             <td>
-                @Html.ActionLink(item.ThreadTitle, "/Details/" + item.ThreadID)
+                @Html.ActionLink(item.ThreadTitle, "Index", "Posts", new { threadidd = item.ThreadID}, null)
             </td>
             <td>
                 @using (Html.BeginForm("Delete", "Threads", new { id = item.ThreadID }, FormMethod.Post))

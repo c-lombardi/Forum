@@ -6,14 +6,21 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.ValidationSummary(true)
 
     <fieldset>
         <legend>Thread</legend>
 
         @Html.HiddenFor(model => model.ThreadID)
-
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ThreadTitle)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ThreadTitle)
+            @Html.ValidationMessageFor(model => model.ThreadTitle)
+        </div>
         <p>
             <input type="submit" value="Save" />
         </p>

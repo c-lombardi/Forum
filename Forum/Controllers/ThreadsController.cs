@@ -26,9 +26,9 @@ namespace Forum.Controllers
         //
         // GET: /Threads/Details/5
 
-        public ActionResult Details(int id = 0)
+        public ActionResult Details(int threadid = 0, int postid = 0)
         {
-            var viewmodel = new ThreadVM() { thread = new Thread(), threads = db.Threads.ToList() };
+            var viewmodel = new ThreadVM() { thread = new Thread(), threads = db.Threads.ToList()};
             return View(viewmodel);
         }
 

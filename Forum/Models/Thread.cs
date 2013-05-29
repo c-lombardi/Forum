@@ -10,6 +10,9 @@ namespace Forum.Models
     {
         public int ThreadID { get; set; }
         public string ThreadTitle { get; set; }
-        public Post Posts { get; set; }
+        public class PostDBContext : DbContext
+        {
+            public DbSet<Post> Posts { get; set; }
+        }
     }
 }

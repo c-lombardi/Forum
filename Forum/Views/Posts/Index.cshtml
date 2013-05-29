@@ -31,21 +31,18 @@
                 @Html.DisplayFor(modelItem => item.PostText)
             </td>
             <td>
-                @using (Html.BeginForm("Delete", "Posts", new { id = item.PostID }, FormMethod.Post))
+                @using (Html.BeginForm("Delete", "Posts", new { id = item.PostID, threadid = Model.threadid }, FormMethod.Post))
                 {
                       <input type="submit" value="Delete"/>
                 }
             </td>
             <td>
-                @using (Html.BeginForm("Edit", "Posts", new { id = item.PostID }, FormMethod.Get))
-                {
-                      <input type="submit" value="Edit"/>
-                }
+                @Html.ActionLink("Edit", "Edit", new { id = item.PostID, threadid = Model.threadid })
             </td>
         </tr>
     }
 </table>
-@using (Html.BeginForm("Create", "Posts", FormMethod.Post))
+@using (Html.BeginForm("Create", "Posts", new {threadid = Model.threadid}, FormMethod.Post,  null  ))
 {
     @Html.ValidationSummary(true)
 

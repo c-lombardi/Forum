@@ -17,10 +17,17 @@ namespace Forum.Controllers
         //
         // GET: /Posts/
 
-        public ActionResult Index()
+        public ActionResult Index(int threadidd = 0)
         {
-            var viewmodel = new PostVM() {post = new Post(), posts = db.Posts.ToList() }; 
-            return View(viewmodel);
+        
+            Thread thread = db.Threads.Find(threadidd);
+            if (threadidd != 0)
+            {
+                var viewmodel = new PostVM() { post = thread.Posts, posts = db.Posts.ToList(), thread = thread, threadid = threadidd };
+                return View(viewmodel);
+            }
+            return View();
+
         }
 
         //
@@ -48,13 +55,13 @@ namespace Forum.Controllers
         // POST: /Posts/Create
 
         [HttpPost]
-        public ActionResult Create(Post post)
+        public ActionResult Create(Post post, int threadid = 0)
         {
             if (ModelState.IsValid)
             {
                 db.Posts.Add(post);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { threadidd = threadid });
             }
 
             return View(post);
@@ -63,27 +70,28 @@ namespace Forum.Controllers
         //
         // GET: /Posts/Edit/5
 
-        public ActionResult Edit(int id = 0)
+        public ActionResult Edit(int id = 0, int threadid = 0)
         {
             Post post = db.Posts.Find(id);
             if (post == null)
             {
                 return HttpNotFound();
             }
-            return View(post);
+            var viewmodel = new PostEditVM() { post = post, threadid = threadid };
+            return View(viewmodel);
         }
 
         //
         // POST: /Posts/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Post post)
+        public ActionResult Edit(Post post, int threadid = 0)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { threadidd = threadid });
             }
             return View(post);
         }
@@ -105,12 +113,12 @@ namespace Forum.Controllers
         // POST: /Posts/Delete/5
 
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id, int threadid)
         {
             Post post = db.Posts.Find(id);
             db.Posts.Remove(post);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { threadidd = threadid });
         }
 
         protected override void Dispose(bool disposing)
