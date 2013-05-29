@@ -19,27 +19,30 @@
         </th>
         <th></th>
     </tr>*@
-    <tr><th>Post Title</th><th>Post Text</th></tr>
+    <tr><th>@Html.DisplayTextFor(model => Model.thread.ThreadTitle)</th></tr>
     @foreach (var item in Model.posts)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PostTitle)
-            </td>
+        if(item.ThreadID == Model.threadid)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PostTitle)
+                </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.PostText)
-            </td>
-            <td>
-                @using (Html.BeginForm("Delete", "Posts", new { id = item.PostID, threadid = Model.threadid }, FormMethod.Post))
-                {
-                      <input type="submit" value="Delete"/>
-                }
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.PostID, threadid = Model.threadid })
-            </td>
-        </tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PostText)
+                </td>
+                <td id="buttonhover">
+                    @using (Html.BeginForm("Delete", "Posts", new { id = item.PostID, threadid = Model.threadid }, FormMethod.Post))
+                    {
+                          <input type="submit" value="Delete"/>
+                    }
+                </td>
+                <td id="buttonhover">
+                    @Html.ActionLink("Edit", "Edit", new { id = item.PostID, threadid = Model.threadid })
+                </td>
+            </tr>
+        }
     }
 </table>
 @using (Html.BeginForm("Create", "Posts", new {threadid = Model.threadid}, FormMethod.Post,  null  ))
@@ -64,7 +67,6 @@
             @Html.EditorFor(model => model.post.PostText)
             @Html.ValidationMessageFor(model => model.post.PostText)
         </div>
-
         <p>
             <input type="submit" value="Create" />
         </p>

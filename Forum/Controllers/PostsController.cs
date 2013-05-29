@@ -10,6 +10,7 @@ using Forum.ViewModel;
 
 namespace Forum.Controllers
 {
+    [Authorize(Roles = "User, Admin")]
     public class PostsController : Controller
     {
         private ForumDBContext db = new ForumDBContext();
@@ -19,11 +20,11 @@ namespace Forum.Controllers
 
         public ActionResult Index(int threadidd = 0)
         {
-        
+            
             Thread thread = db.Threads.Find(threadidd);
             if (threadidd != 0)
             {
-                var viewmodel = new PostVM() { post = thread.Posts, posts = db.Posts.ToList(), thread = thread, threadid = threadidd };
+                var viewmodel = new PostVM() { posts = db.Posts.ToList(), threadid = threadidd, thread = thread };
                 return View(viewmodel);
             }
             return View();
@@ -59,6 +60,7 @@ namespace Forum.Controllers
         {
             if (ModelState.IsValid)
             {
+                post.ThreadID = threadid;
                 db.Posts.Add(post);
                 db.SaveChanges();
                 return RedirectToAction("Index", new { threadidd = threadid });
@@ -89,6 +91,7 @@ namespace Forum.Controllers
         {
             if (ModelState.IsValid)
             {
+                post.ThreadID = threadid;
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index", new { threadidd = threadid });
@@ -98,7 +101,7 @@ namespace Forum.Controllers
 
         //
         // GET: /Posts/Delete/5
-
+    
         public ActionResult Delete(int id = 0)
         {
             Post post = db.Posts.Find(id);
@@ -111,7 +114,7 @@ namespace Forum.Controllers
 
         //
         // POST: /Posts/Delete/5
-
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id, int threadid)
         {

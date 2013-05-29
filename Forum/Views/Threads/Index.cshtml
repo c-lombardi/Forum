@@ -5,20 +5,8 @@
 }
 
 <h2>Forum</h2>
-
-@*<p>
-    @Html.ActionLink("Create New", "Create")
-</p>*@
 <table class ="threads">
-    @*    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ThreadTitle)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ThreadText)
-        </th>
-        <th></th>
-    </tr>*@
+
     <tr><th>Thread Title</th><th>Buttons!</th><th> Glorious buttons!</th></tr>
     @foreach (var item in Model.threads)
     {
@@ -61,34 +49,6 @@
         </p>
     </fieldset>
 }
-
-@*@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
-
-    <fieldset>
-        <legend>Thread</legend>
-
-        <div class="editor-label">
-            @Html.LabelFor(modelItem => model.ThreadTitle)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ThreadTitle)
-            @Html.ValidationMessageFor(model => model.ThreadTitle)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ThreadText)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ThreadText)
-            @Html.ValidationMessageFor(model => model.ThreadText)
-        </div>
-
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
-}*@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

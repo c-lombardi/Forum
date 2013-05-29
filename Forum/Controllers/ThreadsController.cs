@@ -10,6 +10,7 @@ using Forum.ViewModel;
 
 namespace Forum.Controllers
 {
+
     public class ThreadsController : Controller
     {
         private ForumDBContext db = new ForumDBContext();
@@ -43,11 +44,12 @@ namespace Forum.Controllers
         //
         // POST: /Threads/Create
 
+        [Authorize]
         [HttpPost]
         public ActionResult Create(Thread thread)
         {
             if (ModelState.IsValid)
-            {
+            {                    
                 db.Threads.Add(thread);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -58,7 +60,7 @@ namespace Forum.Controllers
 
         //
         // GET: /Threads/Edit/5
-
+        [Authorize]
         public ActionResult Edit(int id = 0)
         {
             Thread thread = db.Threads.Find(id);
@@ -99,7 +101,7 @@ namespace Forum.Controllers
 
         //
         // POST: /Threads/Delete/5
-
+        [Authorize (Roles="Admin")]
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
