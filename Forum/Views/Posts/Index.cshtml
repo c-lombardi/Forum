@@ -6,19 +6,8 @@
 
 <h2>Forum</h2>
 
-@*<p>
-    @Html.ActionLink("Create New", "Create")
-</p>*@
 <table class ="posts">
-    @*    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.PostTitle)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PostText)
-        </th>
-        <th></th>
-    </tr>*@
+
     <tr><th>@Html.DisplayTextFor(model => Model.thread.ThreadTitle)</th></tr>
     @foreach (var item in Model.posts)
     {
@@ -32,15 +21,18 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.PostText)
                 </td>
-                <td id="buttonhover">
+                @if (item.PUserID == this.User.Identity.Name)
+                {
+                <td>
                     @using (Html.BeginForm("Delete", "Posts", new { id = item.PostID, threadid = Model.threadid }, FormMethod.Post))
                     {
                           <input type="submit" value="Delete"/>
                     }
                 </td>
-                <td id="buttonhover">
+                <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.PostID, threadid = Model.threadid })
                 </td>
+                }
             </tr>
         }
     }

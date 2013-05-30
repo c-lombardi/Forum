@@ -10,6 +10,7 @@ namespace Forum.Models
     {
         public int ThreadID { get; set; }
         public string ThreadTitle { get; set; }
+        public string TUserID { get; set; }
 
         public virtual ICollection<Post> Posts { get; set; }
     }

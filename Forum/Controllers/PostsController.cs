@@ -49,7 +49,7 @@ namespace Forum.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            return RedirectToAction("Index");
         }
 
         //
@@ -60,6 +60,7 @@ namespace Forum.Controllers
         {
             if (ModelState.IsValid)
             {
+                post.PUserID = this.User.Identity.Name; 
                 post.ThreadID = threadid;
                 db.Posts.Add(post);
                 db.SaveChanges();
@@ -91,6 +92,7 @@ namespace Forum.Controllers
         {
             if (ModelState.IsValid)
             {
+                post.PUserID = this.User.Identity.Name; 
                 post.ThreadID = threadid;
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
@@ -109,12 +111,12 @@ namespace Forum.Controllers
             {
                 return HttpNotFound();
             }
-            return View(post);
+            return RedirectToAction("Index");
         }
 
         //
         // POST: /Posts/Delete/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "User, Admin")]
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id, int threadid)
         {

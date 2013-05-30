@@ -14,6 +14,8 @@
             <td>
                 @Html.ActionLink(item.ThreadTitle, "Index", "Posts", new { threadidd = item.ThreadID}, null)
             </td>
+            @if (item.TUserID == this.User.Identity.Name)
+            {
             <td>
                 @using (Html.BeginForm("Delete", "Threads", new { id = item.ThreadID }, FormMethod.Post))
                 {
@@ -21,11 +23,12 @@
                 }
             </td>
             <td>
-                @using (Html.BeginForm("Edit", "Threads", new { id = item.ThreadID }, FormMethod.Get))
+                @using (Html.BeginForm("Edit", "Threads", new { id = item.ThreadID}, FormMethod.Get))
                 {
                       <input type="submit" value="Edit"/>
                 }
             </td>
+            }
         </tr>
     }
 </table>

@@ -12,5 +12,6 @@ namespace Forum.ViewModel
         public int threadid { get; set; }
         public Post post { get; set; }
         public IEnumerable<Post> posts { get; set; }
+        public string PUserID { get; set; }
     }
 }

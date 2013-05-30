@@ -10,5 +10,6 @@ namespace Forum.ViewModel
     {
         public int threadid { get; set; }
         public Post post { get; set; }
+        public string TUserID { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace Forum.Controllers
 
         public ActionResult Index()
         {
-            var viewmodel = new ThreadVM() { thread = new Thread(), threads = db.Threads.ToList() }; 
+            var viewmodel = new ThreadVM() { thread = new Thread(), threads = db.Threads.ToList()}; 
             return View(viewmodel);
         }
 
@@ -38,7 +38,7 @@ namespace Forum.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            return RedirectToAction("Index");
         }
 
         //
@@ -49,7 +49,8 @@ namespace Forum.Controllers
         public ActionResult Create(Thread thread)
         {
             if (ModelState.IsValid)
-            {                    
+            {
+                thread.TUserID = this.User.Identity.Name;    
                 db.Threads.Add(thread);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -79,6 +80,7 @@ namespace Forum.Controllers
         {
             if (ModelState.IsValid)
             {
+                thread.TUserID = this.User.Identity.Name;
                 db.Entry(thread).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -96,12 +98,12 @@ namespace Forum.Controllers
             {
                 return HttpNotFound();
             }
-            return View(thread);
+            return RedirectToAction("Index");
         }
 
         //
         // POST: /Threads/Delete/5
-        [Authorize (Roles="Admin")]
+        [Authorize(Roles = "User, Admin")]
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {

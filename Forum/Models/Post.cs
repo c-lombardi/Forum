@@ -12,6 +12,7 @@ namespace Forum.Models
         public string PostTitle { get; set; }
         public string PostText { get; set; }
         public  int SortID { get; set; }
+        public string PUserID {get; set;}
 
         public int ThreadID { get; set; }
         public virtual Thread Thread { get; set; }
