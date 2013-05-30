@@ -48,6 +48,10 @@ namespace Forum.Controllers
         [HttpPost]
         public ActionResult Create(Thread thread)
         {
+            if (thread.ThreadTitle == null)
+            {
+                thread.ThreadTitle = "Empty";
+            }
             if (ModelState.IsValid)
             {
                 thread.TUserID = this.User.Identity.Name;    

@@ -58,6 +58,14 @@ namespace Forum.Controllers
         [HttpPost]
         public ActionResult Create(Post post, int threadid = 0)
         {
+            if (post.PostTitle == null)
+            {
+                post.PostTitle = "Empty";
+            }
+            if (post.PostText == null)
+            {
+                post.PostText = "Empty";
+            }
             if (ModelState.IsValid)
             {
                 post.PUserID = this.User.Identity.Name; 
